@@ -1,4 +1,39 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src"
+  "sourceRoot": "apps/nest-typescript-starter/src",
+  "monorepo": true,
+  "root": "apps/nest-typescript-starter",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/nest-typescript-starter/tsconfig.app.json"
+  },
+  "projects": {
+    "nest-typescript-starter": {
+      "type": "application",
+      "root": "apps/nest-typescript-starter",
+      "entryFile": "main",
+      "sourceRoot": "apps/nest-typescript-starter/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/nest-typescript-starter/tsconfig.app.json"
+      }
+    },
+    "user-service": {
+      "type": "application",
+      "root": "apps/user-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/user-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/user-service/tsconfig.app.json"
+      }
+    },
+    "notification": {
+      "type": "application",
+      "root": "apps/notification",
+      "entryFile": "main",
+      "sourceRoot": "apps/notification/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/notification/tsconfig.app.json"
+      }
+    }
+  }
 }
