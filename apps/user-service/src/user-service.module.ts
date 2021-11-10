@@ -1,21 +1,19 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { MongooseConfigService } from './config/mongoose-config-service';
+import { SequelizeConfigService } from './config/sequelize-config-service';
 import { UserServiceController } from './user-service.controller';
 import { UserServiceService } from './user-service.service';
 import { Users } from './users/models/users.model';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [SequelizeModule.forRoot({
-    dialect: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'ismaeil',
-    password: 'root',
-    database: 'test',
-    autoLoadModels: true,
-    synchronize: true,
-    models: [Users],
-  }),SequelizeModule.forFeature([Users])],
+  imports: [MongooseModule.forRootAsync({
+    useClass:MongooseConfigService
+  }),
+    SequelizeModule.forRootAsync({
+      useClass:SequelizeConfigService
+    }),SequelizeModule.forFeature([Users])],
   controllers: [UserServiceController],
   providers: [UserServiceService],
 })
