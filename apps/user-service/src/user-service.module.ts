@@ -7,22 +7,15 @@ import { UserServiceService } from './user-service.service';
 import { Users } from './users/models/users.model';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserConfigModule } from './config/user-config.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
    imports: [
-    // MongooseModule.forRootAsync({
-  //   useClass:MongooseConfigService
-  // }),
+  UsersModule,
   SequelizeModule.forRootAsync({
     imports:[UserConfigModule],
-    name: 'development',
     useExisting: SequelizeConfigService,
-  }),
-    // SequelizeModule.forRootAsync({
-    //   name: 'development',
-    //   useClass:SequelizeConfigService
-    // }),
-    SequelizeModule.forFeature([Users], 'development')],
+  })],
   controllers: [UserServiceController],
   providers: [UserServiceService],
 })

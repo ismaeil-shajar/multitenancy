@@ -1,4 +1,5 @@
-import { Column, Model, Table,CreatedAt,UpdatedAt, BelongsToMany } from 'sequelize-typescript';
+import { Column, Model, Table,CreatedAt,UpdatedAt, BelongsToMany,ForeignKey } from 'sequelize-typescript';
+import { Organizations } from './organizations.model';
 
 @Table({tableName:'Users'})
 export class Users extends Model<Users> {
@@ -16,4 +17,8 @@ export class Users extends Model<Users> {
       
     @Column( { allowNull: false})
     type: string;
+
+    @ForeignKey(() => Organizations)
+    @Column
+    organizationId: number;
 }
