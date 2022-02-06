@@ -1,17 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AuthServiceController } from './auth-service.controller';
 import { AuthServiceService } from './auth-service.service';
-import { PassportModule } from '@nestjs/passport';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { LocalStrategy } from './auth/strategies/local.strategy';
-import { JwtStrategy } from './auth/strategies/jwt.strategy';
 import { AuthValidateService } from './auth-validate.service';
-import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
-import { AuthModule } from './auth/auth.module';
+import { AuthLibModule } from 'libs/auth-lib/src';
 @Module({
   imports: [
-  AuthModule.register(
+    AuthLibModule.register(
     {
     provide: 'AUTH_SERVICE',
     useClass:AuthValidateService
