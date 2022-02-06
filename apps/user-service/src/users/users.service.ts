@@ -9,7 +9,7 @@ import { CreateAccountDto } from './dto/create-account-dto';
 import { CreateUserDto } from './dto/create-user-dto';
 import { Organizations } from './models/organizations.model';
 import { Users } from './models/users.model';
-// import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -24,8 +24,8 @@ export class UsersService {
       }    
     
     async create( createUserDto:CreateUserDto):Promise<Users> {
-      // const hashpassword= await bcrypt.hash(createUserDto.password,10)
-      // createUserDto.password=hashpassword;
+      const hashpassword= await bcrypt.hash(createUserDto.password,10)
+      createUserDto.password=hashpassword;
       return this.userModel.create(<Users>createUserDto)
     }
 

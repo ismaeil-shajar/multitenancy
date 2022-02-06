@@ -1,10 +1,11 @@
 import * as auth_service_service from "./auth-service.service"
+import { JwtService } from '@nestjs/jwt';
 // @ponicode
 describe("auth_service_service.AuthServiceService.login", () => {
     let inst: any
 
     beforeEach(() => {
-        inst = new auth_service_service.AuthServiceService()
+        inst = new auth_service_service.AuthServiceService(new JwtService({}));
     })
 
     test("0", () => {

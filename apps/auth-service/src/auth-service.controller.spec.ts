@@ -16,7 +16,7 @@ describe('AuthServiceController', () => {
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      expect(authServiceController.getHello()).toBe('Hello World!');
+      expect(authServiceController.getHello({})).toBe('Hello World!');
     });
   });
 });

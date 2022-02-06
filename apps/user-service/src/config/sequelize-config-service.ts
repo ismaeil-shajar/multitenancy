@@ -14,7 +14,7 @@ export class SequelizeConfigService implements SequelizeOptionsFactory {
       
       if(this.request.data ){
         const host=this.request.data['host']
-        domain=host?this.request.data['host'].split('.'):"127.0.0.1".split('.');
+        domain=host?host.split('.'):"127.0.0.1".split('.');
         console.log(this.request)
       }
       else{

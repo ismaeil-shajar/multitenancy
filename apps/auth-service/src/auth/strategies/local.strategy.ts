@@ -1,10 +1,8 @@
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
-import { ContextIdFactory, ModuleRef } from '@nestjs/core';
+
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
-import { firstValueFrom, Observable } from 'rxjs';
-import { UserDto } from '../dto/UserDto';
-
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -16,13 +14,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(  request: Request,username: string, password: string): Promise<any> {
-
-    // const contextId = ContextIdFactory.getByRequest(request);
-    // "AuthService" is a request-scoped provider
-    // const authService = await this.moduleRef.resolve(AuthServiceService, contextId);
-
-    // const user = await firstValueFrom(authService.validateUser(username, password),{defaultValue:null});
-    
     const user = await firstValueFrom(this.authService.validateUser(username, password),{defaultValue:null});
     console.log('username',user);
     if (!user) {

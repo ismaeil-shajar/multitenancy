@@ -84,7 +84,11 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/apps/"
-    ]
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "^@app/auth-lib(|/.*)$": "<rootDir>/libs/auth-lib/src/$1"
+    }
   }
 }

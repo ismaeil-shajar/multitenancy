@@ -5,25 +5,25 @@ import { PassportModule } from '@nestjs/passport';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { LocalStrategy } from './auth/strategies/local.strategy';
 import { JwtStrategy } from './auth/strategies/jwt.strategy';
-import { AuthValidateService } from './auth/auth-validate.service';
-
+import { AuthValidateService } from './auth-validate.service';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './constants';
+import { AuthModule } from './auth/auth.module';
 @Module({
-  imports: [PassportModule,
-    ClientsModule.register([
-      {
-        name: 'User_SERVICE',
-        transport: Transport.REDIS,
-        options: {
-          url: 'redis://localhost:6379',
-        },
-      },
-    ])
-  ],
-  controllers: [AuthServiceController],
-  providers: [AuthServiceService,
-    {provide:'AUTH_SERVICE',
+  imports: [
+  AuthModule.register(
+    {
+    provide: 'AUTH_SERVICE',
     useClass:AuthValidateService
-  },
-    LocalStrategy, JwtStrategy],
+    }
+  ,
+    { 
+    userServiceClientProvider:'User_SERVICE',
+    redisUrl:'redis://localhost:6379',
+    jwtsecret:jwtConstants.secret
+    }
+  )],
+  controllers: [AuthServiceController],
+  providers: [AuthServiceService],
 })
 export class AuthServiceModule {}

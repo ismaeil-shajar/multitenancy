@@ -10,8 +10,6 @@ import { UserDto } from './dto/UserDto';
 
 @Injectable()
 export class AuthValidateService {
-
-
     constructor(
         @Inject('User_SERVICE') private readonly userServiceClient: ClientProxy
       ) {}
@@ -19,7 +17,7 @@ export class AuthValidateService {
     validateUser(username: string, pass: string): Observable<UserDto>|null {
 
         return this.userServiceClient.send('findOne',
-        {username:username})
+       this.addMicroserviceToken({username:username}))
         .pipe(map((user:UserDto)=>{ 
           
           if (user && bcrypt.compareSync(pass, user.password)) {
@@ -32,7 +30,11 @@ export class AuthValidateService {
             return  of(null);
         })
           )
-        // let hashpass= await bcrypt.hashSync(pass,10)
       
       } 
+      
+    private addMicroserviceToken(data:any): any{
+      data.token=bcrypt.hashSync("secret",10) ;
+      return data;
+  }
 }
