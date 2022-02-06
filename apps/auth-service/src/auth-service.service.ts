@@ -6,6 +6,7 @@ import { UserDto } from './auth/dto/UserDto';
 export class AuthServiceService {
 
   login(user:UserDto):UserDto {
+    console.log(user);
     return user;
   }
 }
