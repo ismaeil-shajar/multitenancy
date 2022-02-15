@@ -5,11 +5,12 @@ https://docs.nestjs.com/providers#services
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Op } from 'sequelize';
-import { CreateAccountDto } from './dto/create-account-dto';
-import { CreateUserDto } from './dto/create-user-dto';
-import { Organizations } from './models/organizations.model';
-import { Users } from './models/users.model';
+import { CreateAccountDto } from '../dto/create-account-dto';
+import { CreateUserDto } from '../dto/create-user-dto';
+import { Organizations } from '../models/organizations.model';
+import { Users } from '../models/users.model';
 import * as bcrypt from 'bcrypt';
+import { PrivilegeGroup } from '../models/privilegeGroup.model';
 
 @Injectable()
 export class UsersService {
@@ -20,8 +21,8 @@ export class UsersService {
 
     async findOne(username: string): Promise<Users> {
     
-      return this.userModel.findOne({where:{email:username},nest: true}) ;
-      }    
+      return this.userModel.findOne({include:[{model:PrivilegeGroup , attributes:["roles"],through: {attributes: []}}],where:{email:username},nest: true}) ;
+    }     
     
     async create( createUserDto:CreateUserDto):Promise<Users> {
       const hashpassword= await bcrypt.hash(createUserDto.password,10)
