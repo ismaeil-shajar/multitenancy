@@ -8,7 +8,7 @@
 # Create a multi-tenancy application in Nest.js
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript multi tenant repo.
+we use [Nest](https://github.com/nestjs/nest) framework to build what we can called started microservice application used by multiple tenants as SaaS system and add basic services auth-service, user-service , and notification-service 
 
 ## Installation
 
@@ -16,16 +16,21 @@
 $ npm install
 ```
 
-## Running the app
+## Running Service
 
 ```bash
 # development
-$ npm run start
+$ npm run start ${serviceName}
 
 # watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+$ npm run start:dev ${serviceName}
 ```
 
+## test Auth and user service 
+you can run both services using run script.
+ 
+```bash
+$ chmod +x run.sh
+
+$./run.sh
+```
